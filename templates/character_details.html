@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{{ character.char_name }} - Detalles</title>
+</head>
+<body>
+    <div class="dashboard-container">
+        <a href="{{ url_for('dashboard') }}" class="back-button">← Volver</a>
+        <a href="{{ url_for('logout') }}" class="logout-btn">Cerrar Sesión</a>
+        <h1 class="oauthButton">{{ character.char_name }}</h1>
+        <h2>Inventario</h2>
+        <table class="characters-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Cantidad</th>
+                    <th>Nivel encantamiento</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.item_name }}</td>
+                    <td>{{ item.count }}</td>
+                    <td>{{ item.enchant_level }}</td>
+                    <td>{{ item.loc }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

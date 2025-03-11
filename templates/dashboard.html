@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Character Dashboard</title>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header-actions">
+            <h1>Welcome, {{ session['username'] }}</h1>
+            <div class="action-buttons">
+                <button onclick="openPasswordModal()" class="change-password-btn">Cambiar Contraseña</button>
+                <a href="{{ url_for('logout') }}" class="logout-btn">Log Out</a>
+            </div>
+        </div>
+        
+        <!-- Password Change Modal -->
+        <div id="passwordModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closePasswordModal()">&times;</span>
+                <h2>Cambiar Contraseña</h2>
+                <form method="POST" action="{{ url_for('change_password') }}" onsubmit="return validatePasswordChange()">
+                    <div class="form-group">
+                        <input type="password" name="old_password" placeholder="Contraseña Actual" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="new_password" id="new_password" placeholder="Nueva Contraseña" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirmar Nueva Contraseña" required>
+                    </div>
+                    <button type="submit" class="oauthButton">Cambiar Contraseña</button>
+                </form>
+            </div>
+        </div>
+
+        <table class="characters-table">
+            <thead>
+                <tr>
+                    <th>Personaje</th>
+                    <th>Nivel</th>
+                    <th>Fecha</th>
+                    <th>HP</th>
+                    <th>MP</th>
+                    <th>Online Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for character in characters %}
+                <tr>
+                    <td>
+                        <!-- Usando el alias charId -->
+                        <a href="{{ url_for('character_details', char_id=character['charId']) }}">
+                            {{ character.char_name }}
+                        </a>
+                    </td>
+                    <td>{{ character.level }}</td>
+                    <td>{{ character.createDate }}</td>
+                    <td>{{ character.curHp }}</td>
+                    <td>{{ character.curMp }}</td>
+                    <td>{{ character.onlinetime }}segundos</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function openPasswordModal() {
+            document.getElementById('passwordModal').style.display = 'block';
+        }
+
+        function closePasswordModal() {
+            document.getElementById('passwordModal').style.display = 'none';
+        }
+
+        function validatePasswordChange() {
+            const newPassword = document.getElementById('new_password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+
+            if (newPassword !== confirmPassword) {
+                alert('Las contraseñas nuevas no coinciden');
+                return false;
+            }
+            return true;
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('passwordModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

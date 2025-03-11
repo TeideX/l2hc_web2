@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Register</title>
+</head>
+<body>
+    <div class="container">           
+        <form method="POST" action="{{ url_for('show_register') }}" class="form" onsubmit="return validatePasswords()">
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="L2 Hardkore" class="logo">
+            </div>
+                <input type="text" placeholder="Login" name="username" required>
+                <input type="email" placeholder="Email" name="email" required>
+                <input type="password" placeholder="Contraseña" name="password" id="password" required>
+                <input type="password" placeholder="Confirma Contraseña" name="confirm_password" id="confirm_password" required>
+            <div class="separator">
+                <div></div>
+                <span>OR</span>
+                <div></div>
+            </div>
+
+            <button type="submit" class="oauthButton">
+                        Registrarse
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 17 5-5-5-5"></path><path d="m13 17 5-5-5-5"></path></svg>
+            </button>
+
+            <a href="{{ url_for('hello_world') }}" class="oauthButton">
+                        Volver al Login
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 17 5-5-5-5"></path><path d="m13 17 5-5-5-5"></path></svg>
+            </a>
+        </form>
+
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <script>
+    function validatePasswords() {
+        const password = document.getElementById('password').value;
+        const confirm = document.getElementById('confirm_password').value;
+        
+        if (password !== confirm) {
+            alert('Las contraseñas no coinciden');
+            return false;
+        }
+        return true;
+    }
+    </script>
+</body>
+</html>
