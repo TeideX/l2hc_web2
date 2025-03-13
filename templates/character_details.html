@@ -7,16 +7,16 @@
 <body>
     <div class="dashboard-container">
         <a href="{{ url_for('dashboard') }}" class="back-button">← Volver</a>
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="L2 Hardkore" class="logoCD">
         <a href="{{ url_for('logout') }}" class="logout-btn">Cerrar Sesión</a>
-        <h1 class="oauthButton">{{ character.char_name }}</h1>
-        <h2>Inventario</h2>
+        <h1>{{ character.char_name }}</h1>
         <table class="characters-table">
             <thead>
                 <tr>
                     <th>Item</th>
                     <th>Cantidad</th>
                     <th>Nivel encantamiento</th>
-                    <th>Location</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -25,7 +25,7 @@
                     <td>{{ item.item_name }}</td>
                     <td>{{ item.count }}</td>
                     <td>{{ item.enchant_level }}</td>
-                    <td>{{ item.loc }}</td>
+                    
                 </tr>
                 {% endfor %}
             </tbody>

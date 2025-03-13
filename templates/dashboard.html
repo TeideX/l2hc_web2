@@ -7,7 +7,7 @@
 <body>
     <div class="dashboard-container">
         <div class="header-actions">
-            <h1>Welcome, {{ session['username'] }}</h1>
+            <h2>Welcome, {{ session['username'] }}</h2>
             <div class="action-buttons">
                 <button onclick="openPasswordModal()" class="change-password-btn">Cambiar Contraseña</button>
                 <a href="{{ url_for('logout') }}" class="logout-btn">Log Out</a>
